@@ -1,6 +1,5 @@
 package com.barcelona.hackupc.drivesafe.context_awareness;
 
-import com.barcelona.hackupc.drivesafe.ContextResultListener;
 import com.barcelona.hackupc.drivesafe.Location.UpdateViewContextValue;
 import com.barcelona.hackupc.drivesafe.model.UIData;
 import com.google.android.gms.awareness.Awareness;

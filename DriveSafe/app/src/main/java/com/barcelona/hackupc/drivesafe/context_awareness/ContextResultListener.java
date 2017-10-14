@@ -1,24 +1,14 @@
-package com.barcelona.hackupc.drivesafe;
+package com.barcelona.hackupc.drivesafe.context_awareness;
 
-import android.location.Location;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.barcelona.hackupc.drivesafe.Location.UpdateViewContextValue;
 import com.barcelona.hackupc.drivesafe.model.UIData;
 import com.google.android.gms.awareness.snapshot.DetectedActivityResult;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Result;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.ResultCallbacks;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
-import com.google.android.gms.common.api.Result;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class to get the current contextual information and updates the UI using UpdateViewContextValue interface
