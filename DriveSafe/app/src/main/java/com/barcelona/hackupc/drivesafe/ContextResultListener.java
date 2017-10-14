@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.barcelona.hackupc.drivesafe.Location.UpdateViewContextValue;
+import com.barcelona.hackupc.drivesafe.model.UIData;
 import com.google.android.gms.awareness.snapshot.DetectedActivityResult;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Result;
@@ -29,11 +30,11 @@ public class ContextResultListener implements ResultCallback<DetectedActivityRes
     private String TAG = ContextResultListener.class.getName();
 
     private UpdateViewContextValue updateContextValueView;
-    private Location location;
+    private UIData uiData;
 
-    public ContextResultListener(UpdateViewContextValue updateContextValueView, Location location){
+    public ContextResultListener(UpdateViewContextValue updateContextValueView, UIData uiData){
         this.updateContextValueView = updateContextValueView;
-        this.location = location;
+        this.uiData = uiData;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class ContextResultListener implements ResultCallback<DetectedActivityRes
         }
         ActivityRecognitionResult ar = detectedActivityResult.getActivityRecognitionResult();
         DetectedActivity probableActivity = ar.getMostProbableActivity();
-        updateContextValueView.updateTextValues(probableActivity.toString(),location);
+        updateContextValueView.updateTextValues(probableActivity.toString(), uiData);
         Log.i(TAG, probableActivity.toString());
 //        tvActivityValue.setText( (counter++) + probableActivity.toString());
     }

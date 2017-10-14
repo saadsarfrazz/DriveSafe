@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.barcelona.hackupc.drivesafe.Location.UpdateViewContextValue;
 import com.barcelona.hackupc.drivesafe.Location.UserLocationListener;
+import com.barcelona.hackupc.drivesafe.model.UIData;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,6 +46,8 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
     //Textvies for coords
     private TextView tvLonValue;
     private TextView tvLatValue;
+    private TextView tvGPSStatusValue;
+
 
     //Location manager
     protected LocationManager locationManager;
@@ -55,6 +58,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
 
     // for testing
     private static int counter = 0;
+    private static final String NOT_AVAILABLE = "N/A";
 
     //Contexgt api results
 //    private PendingResult<DetectedActivityResult> detectedActivityResultPendingResult;
@@ -68,6 +72,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
         tvActivityValue = findViewById(R.id.tvActivityValue);
         tvLonValue = findViewById(R.id.tvLonValue);
         tvLatValue = findViewById(R.id.tvLatValue);
+        tvGPSStatusValue = findViewById(R.id.gpsStatusValue);
 
         //create user google api client
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
@@ -171,15 +176,35 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
 
 
     @Override
-    public void updateTextValues(String currentActivity, Location location) {
+    public void updateTextValues(String currentActivity, UIData uiData) {
 
-        tvActivityValue.setText(currentActivity);
+        if(currentActivity != null ){
+            tvActivityValue.setText(currentActivity);
+            updateLocationTextViews(uiData);
 
-        if(location!=null){
-            tvLatValue.setText(Double.toString(location.getLatitude()));
-            tvLatValue.setText(Double.toString(location.getLongitude()));
+        }else{//context not read
+            tvActivityValue.setText(NOT_AVAILABLE);
+            updateLocationTextViews(uiData);
+
+
         }
 
-        Toast.makeText(getApplicationContext(),"UI updated", Toast.LENGTH_LONG);
+    }
+
+    private void updateLocationTextViews(UIData uiData){
+
+        if(uiData.getLocation()!=null){ //everything is good
+            tvLatValue.setText(Double.toString(uiData.getLocation().getLatitude()));
+            tvLonValue.setText(Double.toString(uiData.getLocation().getLongitude()));
+            tvGPSStatusValue.setText("GPS Enabled");
+        }else if(uiData.getLocation()==null && uiData.isGpsEnable()){ //gps on but location not available yet
+            tvLatValue.setText("Getting Data...");
+            tvLonValue.setText("Getting Data...");
+            tvGPSStatusValue.setText("GPS Enabled");
+        }else{  //
+            tvLatValue.setText(NOT_AVAILABLE);
+            tvLonValue.setText(NOT_AVAILABLE);
+            tvGPSStatusValue.setText("GPS Disabled");
+        }
     }
 }
