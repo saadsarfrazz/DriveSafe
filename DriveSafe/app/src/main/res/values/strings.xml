@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DriveSafe</string>
+    <string name="activity_title_string">Activity : </string>
+    <string name="default_title_string">No Activity Found</string>
+    <string name="lat_title_string">Latitude: </string>
+    <string name="lon_title_string">Longitude : </string>
+    <string name="default_coordinates_value"> N/A </string>
+
+</resources>
