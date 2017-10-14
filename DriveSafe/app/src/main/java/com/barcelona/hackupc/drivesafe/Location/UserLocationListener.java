@@ -8,13 +8,10 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.barcelona.hackupc.drivesafe.ContextResultListener;
+
 import com.barcelona.hackupc.drivesafe.context_awareness.ContextAwarenessHelper;
 import com.barcelona.hackupc.drivesafe.model.UIData;
-import com.google.android.gms.awareness.Awareness;
-import com.google.android.gms.awareness.snapshot.DetectedActivityResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 
 /**
  * Created by saad on 14.10.17.

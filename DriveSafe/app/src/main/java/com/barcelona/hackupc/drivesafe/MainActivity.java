@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
 
 
     //Location manager
-    protected LocationManager locationManager;
+    protected LocationManager locationManager =null;
     private UserLocationListener userLocationListener;
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 10; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1 * 1000; // in Milliseconds (per second)
@@ -92,7 +92,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            Log.i(TAG,"Permissions failed 1");
+            Log.d(TAG,"Permissions failed 1");
             Toast.makeText(getApplicationContext(),"Permissions failed 1", Toast.LENGTH_LONG);
             return;
         }
@@ -104,7 +104,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            Log.i(TAG,"Permissions failed 2");
+            Log.d(TAG,"Permissions failed 2");
             Toast.makeText(getApplicationContext(),"Permissions failed 2", Toast.LENGTH_LONG);
             return;
         }
@@ -189,6 +189,25 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
 
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(userLocationListener!=null){
+            locationManager.removeUpdates(userLocationListener);
+            locationManager=null;
+        }
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(userLocationListener == null){
+            userLocationListener = new UserLocationListener(mGoogleApiClient,this);
+        }
     }
 
     private void updateLocationTextViews(UIData uiData){

@@ -1,5 +1,7 @@
 package com.barcelona.hackupc.drivesafe.context_awareness;
 
+import android.util.Log;
+
 import com.barcelona.hackupc.drivesafe.Location.UpdateViewContextValue;
 import com.barcelona.hackupc.drivesafe.model.UIData;
 import com.google.android.gms.awareness.Awareness;
@@ -13,11 +15,13 @@ import com.google.android.gms.common.api.PendingResult;
 
 public class ContextAwarenessHelper {
 
+    private static final String TAG = ContextAwarenessHelper.class.getName();
+
 //    private  detectedActivityResultPendingResult;
     private UpdateViewContextValue updateContextValueView;
 
     public  ContextAwarenessHelper( UpdateViewContextValue updateContextValueView ){
-
+        
         this.updateContextValueView = updateContextValueView;
     }
 
@@ -32,6 +36,7 @@ public class ContextAwarenessHelper {
         ContextResultListener contextResultListener = new ContextResultListener(updateContextValueView,uiData);
         detectedActivityResultPendingResult.setResultCallback(contextResultListener);
 
+        Log.d(TAG,"AwarenessRequest requested");
     }
 
 

@@ -39,7 +39,7 @@ public class ContextResultListener implements ResultCallback<DetectedActivityRes
         ActivityRecognitionResult ar = detectedActivityResult.getActivityRecognitionResult();
         DetectedActivity probableActivity = ar.getMostProbableActivity();
         updateContextValueView.updateTextValues(probableActivity.toString(), uiData);
-        Log.i(TAG, probableActivity.toString());
+        Log.d(TAG, probableActivity.toString());
 //        tvActivityValue.setText( (counter++) + probableActivity.toString());
     }
 
