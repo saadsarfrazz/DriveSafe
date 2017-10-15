@@ -52,8 +52,8 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
     //Location manager
     protected LocationManager locationManager =null;
     private UserLocationListener userLocationListener;
-    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 10; // in Meters
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1 * 1000; // in Milliseconds (per second)
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 5 * 1000; // in Milliseconds (per second)
     private static final long FASTEST_TIME_BETWEEN_UPDATES = 1 * 500; // in Milliseconds (per second)
 
     // for testing
@@ -115,6 +115,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 userLocationListener
         );
+        // TODO: init UI values based on status when application starts
 /*
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(MINIMUM_TIME_BETWEEN_UPDATES);
@@ -194,10 +195,10 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
     @Override
     protected void onPause() {
         super.onPause();
-
+        Log.d(TAG,"on Pause : locationL: " + userLocationListener );
         if(userLocationListener!=null){
             locationManager.removeUpdates(userLocationListener);
-            locationManager=null;
+            userLocationListener=null;
         }
 
     }
@@ -205,6 +206,7 @@ public class MainActivity extends Activity implements UpdateViewContextValue {
     @Override
     protected void onResume(){
         super.onResume();
+        Log.d(TAG,"on Resume : locationListener: " + userLocationListener );
         if(userLocationListener == null){
             userLocationListener = new UserLocationListener(mGoogleApiClient,this);
         }

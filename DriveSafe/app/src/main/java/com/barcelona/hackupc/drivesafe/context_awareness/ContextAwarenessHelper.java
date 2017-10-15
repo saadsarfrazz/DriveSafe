@@ -17,6 +17,8 @@ public class ContextAwarenessHelper {
 
     private static final String TAG = ContextAwarenessHelper.class.getName();
 
+
+
 //    private  detectedActivityResultPendingResult;
     private UpdateViewContextValue updateContextValueView;
 
@@ -31,12 +33,16 @@ public class ContextAwarenessHelper {
      */
     public void requestAwarenessUpdate(GoogleApiClient mGoogleApiClient, UIData uiData){
 
-        PendingResult<DetectedActivityResult> detectedActivityResultPendingResult = Awareness.SnapshotApi.getDetectedActivity(mGoogleApiClient);
-        //listener required to detect pending results
-        ContextResultListener contextResultListener = new ContextResultListener(updateContextValueView,uiData);
-        detectedActivityResultPendingResult.setResultCallback(contextResultListener);
 
-        Log.d(TAG,"AwarenessRequest requested");
+            PendingResult<DetectedActivityResult> detectedActivityResultPendingResult = Awareness.SnapshotApi.getDetectedActivity(mGoogleApiClient);
+            //listener required to detect pending results
+            ContextResultListener contextResultListener = new ContextResultListener(updateContextValueView,uiData);
+            detectedActivityResultPendingResult.setResultCallback(contextResultListener);
+            Log.d(TAG,"AwarenessRequest requested");
+
+
+
+
     }
 
 

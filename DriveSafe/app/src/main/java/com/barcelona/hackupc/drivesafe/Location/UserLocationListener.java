@@ -57,17 +57,17 @@ public class UserLocationListener implements LocationListener {
     @Override
     public void onStatusChanged(String provider, int status, Bundle extra) {
         //not available
-        if(!provider.equals(LocationProvider.AVAILABLE)){
-            UIData uiData = new UIData();
-            uiData.setLocation(null);
-            uiData.setGpsStatus(false);
-            contextAwarenessHelper.requestAwarenessUpdate(mGoogleApiClient,uiData);
-        }else{
-            UIData uiData = new UIData();
-            uiData.setLocation(null);
-            uiData.setGpsStatus(true);
-            contextAwarenessHelper.requestAwarenessUpdate(mGoogleApiClient,uiData);
-        }
+//        if(!provider.equals(LocationProvider.AVAILABLE)){
+//            UIData uiData = new UIData();
+//            uiData.setLocation(null);
+//            uiData.setGpsStatus(false);
+//            contextAwarenessHelper.requestAwarenessUpdate(mGoogleApiClient,uiData);
+//        }else{
+//            UIData uiData = new UIData();
+//            uiData.setLocation(null);
+//            uiData.setGpsStatus(true);
+//            contextAwarenessHelper.requestAwarenessUpdate(mGoogleApiClient,uiData);
+//        }
 
 
         Log.d(TAG,"Status Changed");
@@ -98,6 +98,7 @@ public class UserLocationListener implements LocationListener {
             contextAwarenessHelper.requestAwarenessUpdate(mGoogleApiClient,uiData);
         }
 
-        Log.d(TAG,"Provider Enabled");
+        Log.d(TAG,"Provider Enabled: " + provider);
     }
+
 }

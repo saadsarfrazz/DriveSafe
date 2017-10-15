@@ -22,6 +22,9 @@ public class ContextResultListener implements ResultCallback<DetectedActivityRes
     private UpdateViewContextValue updateContextValueView;
     private UIData uiData;
 
+    //manually handling the delays
+    private static boolean isRequestPending = false;
+
     public ContextResultListener(UpdateViewContextValue updateContextValueView, UIData uiData){
         this.updateContextValueView = updateContextValueView;
         this.uiData = uiData;
@@ -29,18 +32,22 @@ public class ContextResultListener implements ResultCallback<DetectedActivityRes
 
     @Override
     public void onResult(@NonNull DetectedActivityResult detectedActivityResult) {
-        if (!detectedActivityResult.getStatus().isSuccess()) {
-            Log.d(TAG, "Could not get the current activity.");
-            updateContextValueView.updateTextValues("Could not get the current activity.",null);
-//            Toast.makeText(getApplicationContext(),"Could not get the current activity.",Toast.LENGTH_LONG).show();
-//            tvActivityValue.setText("Could not get the current activity.");
-            return;
-        }
-        ActivityRecognitionResult ar = detectedActivityResult.getActivityRecognitionResult();
-        DetectedActivity probableActivity = ar.getMostProbableActivity();
-        updateContextValueView.updateTextValues(probableActivity.toString(), uiData);
-        Log.d(TAG, probableActivity.toString());
-//        tvActivityValue.setText( (counter++) + probableActivity.toString());
+        if(!isRequestPending){
+            isRequestPending = true;
+            if (!detectedActivityResult.getStatus().isSuccess()) {
+                Log.d(TAG, "Could not get the current activity.");
+                updateContextValueView.updateTextValues("Could not get the current activity.",null);
+    //            Toast.makeText(getApplicationContext(),"Could not get the current activity.",Toast.LENGTH_LONG).show();
+    //            tvActivityValue.setText("Could not get the current activity.");
+                return;
+            }
+            ActivityRecognitionResult ar = detectedActivityResult.getActivityRecognitionResult();
+            DetectedActivity probableActivity = ar.getMostProbableActivity();
+            updateContextValueView.updateTextValues(probableActivity.toString(), uiData);
+            Log.d(TAG, probableActivity.toString());
+    //        tvActivityValue.setText( (counter++) + probableActivity.toString());
+            isRequestPending = false;
+        }//else do nothing
     }
 
 
